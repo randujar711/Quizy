@@ -1,25 +1,25 @@
 from app import app
-from models import db, User, Post
-from faker import Faker
+from models import db, User, Deck
+# from faker import Faker
 
 def run_seeds():
-    fake = Faker()
+    # fake = Faker()
     print('Seeding database ... 🌱')
     # Add your seed data here
     with app.app_context():
       user1 = User('rmdashrfv', 'rmdashrfv@example.com', '111111111')
-      user2 = User('mikegpt', 'mikegpt@example.com', '22222222')
-      user3 = User('flyinggeese', 'flyinggeese@example.com', '33333333')
-      db.session.add_all([user1, user2, user3])
+      db.session.add_all([user1])
       db.session.commit()
-      user = User.query.first()
-      seeded_posts = []
-      for _ in range(5):
-        post = Post(fake.text())
-        post.user_id = user.id
-        seeded_posts.append(post)
-      db.session.add_all(seeded_posts)
+
+      deck1 = Deck('Sports', 'Sports', 'Interested in Sports? Test your Knowledge!','quizy-client/assets/tim-gouw-VvQSzMJ_h0U-unsplash.jpg')
+      deck2 = Deck('Science', 'Science', 'Are you Einstein? Lets find out!', 'quizy-client/assets/science-beakers-blue-light.jpeg')
+      deck3 = Deck('Arts & Literature', 'arts_and_leisure', 'Woah there Art major! Bet you wont get this!', 'quizy-client/assets/istockphoto-1190200652-612x612.jpeg')
+      deck4 = Deck('History', 'History', 'We all fell asleep in History class. How much of it do you really know?', 'quizy-client/assets/joanna-kosinska-B6yDtYs2IgY-unsplash.jpg')
+      deck5 = Deck('Music', 'Music', 'Michael Jackson or Prince? Theres only one correct answer. Choose wisley...','quizy-client/assets/photo-1470225620780-dba8ba36b745.jpeg')
+      
+      db.session.add_all([deck1, deck2, deck3, deck4, deck5])
       db.session.commit()
       print('Done! 🌳')
+
 
 run_seeds()
