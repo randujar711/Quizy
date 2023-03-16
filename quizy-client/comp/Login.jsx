@@ -1,9 +1,9 @@
 import { StyleSheet, View, Text } from "react-native"
 import { Link } from 'react-router-native'
-export default function Hello(){
+export default function Login(){
     return(
         <View style={styles.container}>
-            <Text>Hello this is the Hello page</Text>
+            <Text>Hello this is the Login page</Text>
             <Link to='/'>
                 <Text>Lets go back home</Text>
             </Link>

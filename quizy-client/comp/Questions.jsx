@@ -5,6 +5,9 @@ const Questions = () => {
         <View>
             {/* <StatusBar style="auto" /> */}
             <Text>questions component</Text>
+            <Link>
+                <Text to={'/'}>Press to go home</Text>
+            </Link>
         </View>
     )
 }

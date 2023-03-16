@@ -3,8 +3,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import { useState, useEffect } from 'react';
 import { NativeRouter, Route, Routes, Link } from 'react-router-native';
 import Decks from './comp/Decks.jsx';
-import Hello from './comp/Hello.jsx';
+import Login from './comp/Login.jsx';
+import Signup from './comp/Signup.jsx';
 import Questions from './comp/Questions.jsx';
+import Leaderboard from './comp/Leaderboard.jsx'
  
 
 
@@ -44,7 +46,9 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<Decks deck={deck} setCategory={setCategory}/>} />
           <Route exact path='/questions' element={<Questions/>}/>
-          <Route exact path="/hello" element={<Hello/>}/>
+          <Route exact path="/login" element={<Login/>}/>
+          <Route exact path ='/signup' element={<Signup/>}/>
+          <Route exact path='/leaderboard' element={<Leaderboard/>}/>
         </Routes>
         
       </NativeRouter>
