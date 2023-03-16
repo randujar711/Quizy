@@ -4,10 +4,7 @@ import { useState, useEffect } from 'react';
 import { NativeRouter, Route, Routes, Link } from 'react-router-native';
 import Home from './comp/Home.jsx';
 import Hello from './comp/Hello.jsx';
-import axios from 'axios';
-
-
-axios.defaults.validateStatus = false;
+ 
 
 
 export default function App() {
@@ -19,33 +16,22 @@ export default function App() {
       let req = await fetch(`https://the-trivia-api.com/api/questions?categories=${category}&limit=5`)
       let res = await req.json()
       setQuestions(res) 
-      // console.log('hello', res)
     }
-    // const decksCall = async() => {
-    //   try{
-    //     let req = await fetch('http://127.0.0.1:3000/decks')
-    //     let res = await req.json()
-    //     console.log('res test',res)
-    //     setDeck(res)
-    //   } catch(error){
-    //     console.error('error', error)
-    //   }
-    // }
-    // decksCall()
+    const deckCall = async() => {
+      try{
+        let req = await fetch('https://9c07-71-190-177-64.ngrok.io/decks')
+        let res = await req.json()
+        setDeck(res)
+        console.log('deck info in try statement', deck)
+      }
+      catch(error){
+        console.log('this is the error',error)
+      }
+    }
+    deckCall()
     request()
   },[category])
-
-async function fetchData() {
-  try {
-    const response = await fetch('http://127.0.0.1:5000/decks');
-    const data = await response.json();
-    console.log(data);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-fetchData();
+  console.log(category)
 
   return (
     <View style={styles.container}>
