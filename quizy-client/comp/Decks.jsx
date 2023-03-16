@@ -9,7 +9,7 @@ export default function Decks({ deck, setCategory}) {
             <Text>This is my quiz app remodeled yeaaaaaa!</Text>
             <StatusBar backgroundColor="#F00" barStyle="light-content"  />
             <Link to="/questions">
-                <Text>Hello page</Text>
+                <Text>questions page</Text>
             </Link>
             {
                 deck.map((x)=> {
@@ -22,12 +22,13 @@ export default function Decks({ deck, setCategory}) {
                     )
                 })
             }
-            <Link to={'/questions'}>
+            <Link to={'/login'}>
+                <Text>login page</Text>
+            </Link>
                 <Button
                     title="Sports Question" 
                     onPress={()=>{setCategory("Society & Culture")}}
                 />
-            </Link>
         </View>
     )
 }

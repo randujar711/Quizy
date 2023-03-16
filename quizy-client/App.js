@@ -6,7 +6,8 @@ import Decks from './comp/Decks.jsx';
 import Login from './comp/Login.jsx';
 import Signup from './comp/Signup.jsx';
 import Questions from './comp/Questions.jsx';
-import Leaderboard from './comp/Leaderboard.jsx'
+import Leaderboard from './comp/Leaderboard.jsx';
+import Header from './comp/Header.jsx';
  
 
 
@@ -38,10 +39,11 @@ export default function App() {
   console.log(category)
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <View style={styles.container}>      
       <StatusBar style="auto" />
+      
       <NativeRouter>
+        <Header />
 
         <Routes>
           <Route exact path="/" element={<Decks deck={deck} setCategory={setCategory}/>} />
