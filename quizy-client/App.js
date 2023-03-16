@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { useState, useEffect } from 'react';
 import { NativeRouter, Route, Routes, Link } from 'react-router-native';
-import Home from './comp/Home.jsx';
+import Decks from './comp/Decks.jsx';
 import Hello from './comp/Hello.jsx';
+import Questions from './comp/Questions.jsx';
  
 
 
@@ -19,7 +20,7 @@ export default function App() {
     }
     const deckCall = async() => {
       try{
-        let req = await fetch('https://9c07-71-190-177-64.ngrok.io/decks')
+        let req = await fetch('https://93a8-71-190-177-64.ngrok.io/decks')
         let res = await req.json()
         setDeck(res)
         console.log('deck info in try statement', deck)
@@ -28,6 +29,7 @@ export default function App() {
         console.log('this is the error',error)
       }
     }
+    console.log(deck)
     deckCall()
     request()
   },[category])
@@ -40,7 +42,8 @@ export default function App() {
       <NativeRouter>
 
         <Routes>
-          <Route exact path="/" element={<Home setCategory={setCategory}/>} />
+          <Route exact path="/" element={<Decks deck={deck} setCategory={setCategory}/>} />
+          <Route exact path='/questions' element={<Questions/>}/>
           <Route exact path="/hello" element={<Hello/>}/>
         </Routes>
         
