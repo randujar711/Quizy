@@ -47,7 +47,7 @@ export default function App() {
 
         <Routes>
           <Route exact path="/" element={<Decks deck={deck} setCategory={setCategory}/>} />
-          <Route exact path='/questions' element={<Questions/>}/>
+          <Route exact path='/questions' element={<Questions questions={questions}/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path ='/signup' element={<Signup/>}/>
           <Route exact path='/leaderboard' element={<Leaderboard/>}/>

@@ -13,7 +13,8 @@ export default function Login(){
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    height: 200,
+    display: 'flex',
+    height: 150,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
