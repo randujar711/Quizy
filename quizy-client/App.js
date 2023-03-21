@@ -19,11 +19,12 @@ export default function App() {
     const request = async() => {
       let req = await fetch(`https://the-trivia-api.com/api/questions?categories=${category}&limit=5`)
       let res = await req.json()
-      setQuestions(res) 
+      console.log('changed, category', res)
+      setQuestions(res)
     }
     const deckCall = async() => {
       try{
-        let req = await fetch('https://93a8-71-190-177-64.ngrok.io/decks')
+        let req = await fetch('https://6f47-71-190-177-64.ngrok.io/decks')
         let res = await req.json()
         setDeck(res)
         console.log('deck info in try statement', deck)
@@ -32,7 +33,7 @@ export default function App() {
         console.log('this is the error',error)
       }
     }
-    console.log(deck)
+    // console.log(deck)
     deckCall()
     request()
   },[category])
