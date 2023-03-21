@@ -1,20 +1,46 @@
 import { useState } from 'react'
-import { View, Text } from 'react-native'
-import { Link, Form, Input, Label, TextInput} from "react-router-native"
+import { View, Text, TextInput, StyleSheet } from 'react-native'
+import { Link } from "react-router-native"
 
-const Questions = ({questions}) => {
+export default function Questions({questions}) {
     const [score, setScore] = useState(0)
+
     return(
         <View>
             <Text>questions component</Text>
             {console.log('this is questions on questions page',questions)}
             {
                 questions.map((x)=> {
+                    let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
+                        AllChoices.sort(function () { return 0.5 - Math.random() })
+                        const handleChange = (e) => {
+                            e.preventDefault()
+                            if (e.target.value === x.correctAnswer) setScore(score + 1)
+                        }
+                        console.log('after randmization',AllChoices)
                     return(
-                        <Text key={x.id}>
-                            <TextInput />
-                            {x.question}
-                        </Text>
+                        <View>
+                            <Text key={x.id}>
+                                {x.question}
+                            </Text>
+                            <TextInput 
+                                defaultValue={AllChoices[0]}
+                                type='radio'
+                            />
+                            <TextInput 
+                                defaultValue={AllChoices[1]}
+                                type='radio'
+                            />
+                            <TextInput 
+                                defaultValue={AllChoices[2]}
+                                type='radio'
+                            />
+                            <TextInput 
+                                defaultValue={AllChoices[3]}
+                                type='radio'
+                            />
+                        </View>
+                        
                     )
                 })
             } 
@@ -25,4 +51,9 @@ const Questions = ({questions}) => {
         </View>
     )
 }
-export default Questions
+
+const styles = StyleSheet.create({
+    question: {
+        borderWidth: 5
+    }
+})

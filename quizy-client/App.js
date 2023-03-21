@@ -5,7 +5,7 @@ import { NativeRouter, Route, Routes, Link } from 'react-router-native';
 import Decks from './comp/Decks.jsx';
 import Login from './comp/Login.jsx';
 import Signup from './comp/Signup.jsx';
-import Questions from './comp/Questions.jsx';
+import Questions from './comp/Questions.jsx'
 import Leaderboard from './comp/Leaderboard.jsx';
 import Header from './comp/Header.jsx';
  
@@ -24,7 +24,7 @@ export default function App() {
     }
     const deckCall = async() => {
       try{
-        let req = await fetch('https://6f47-71-190-177-64.ngrok.io/decks')
+        let req = await fetch('https://a890-71-190-177-64.ngrok.io/decks')
         let res = await req.json()
         setDeck(res)
         console.log('deck info in try statement', deck)
