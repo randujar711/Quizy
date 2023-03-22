@@ -1,22 +1,18 @@
 import React from "react";
-import { Text, View, StyleSheet } from  'react-native'
+import { Text, View, StyleSheet, Pressable } from  'react-native'
 
-export default function RadioButton({AllChoices, onSelect}){
+export default function RadioButton({AllChoices, onSelect, setUserOption}){
     console.log('ac in rb', AllChoices)
+    
     return(
         <View>
             {AllChoices.map((x)=> {
                 return(
-                    <Text>{x}</Text>
+                    <Pressable onPress={() => setUserOption(x)}>
+                        <Text>{x}</Text>
+                    </Pressable>
                 )
             })}
-            {/* {RetChoices.map((x)=> {
-                console.log(x)
-                    return(
-                        <Text>{x}</Text>
-                    )
-                })} */}
-                {/* <Text>{AllChoices[0]}</Text> */}
         </View>
     )
 }

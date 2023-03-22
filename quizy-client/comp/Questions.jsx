@@ -5,6 +5,7 @@ import RadioButton from './RadioButton'
 
 export default function Questions({questions}) {
     const [score, setScore] = useState(0)
+    const [userOption, setUserOption] = useState(null)
 
     return(
         <View>
@@ -16,6 +17,7 @@ export default function Questions({questions}) {
                     AllChoices.sort(function () { return 0.5 - Math.random() })
                     {/* let RetChoices = {key: AllChoices} */}
                     {/* console.log(RetChoices) */}
+                    console.log(userOption)
                     const handleChange = (e) => {
                         e.preventDefault()
                         if (e.target.value === x.correctAnswer) setScore(score + 1)
@@ -26,7 +28,7 @@ export default function Questions({questions}) {
                             <Text key={x.id}>
                                 {x.question}
                             </Text>
-                            <RadioButton AllChoices={AllChoices}/>
+                            <RadioButton AllChoices={AllChoices} setUserOption={setUserOption}/>
                         </View>
                         
                     )
