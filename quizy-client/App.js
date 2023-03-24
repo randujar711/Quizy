@@ -15,19 +15,21 @@ export default function App() {
   const[questions, setQuestions] = useState([])
   const [category, setCategory] = useState('history')
   const [deck, setDeck] = useState([])
+  const [userOption, setUserOption] = useState(null)
+
   useEffect(()=> {
     const request = async() => {
       let req = await fetch(`https://the-trivia-api.com/api/questions?categories=${category}&limit=5`)
       let res = await req.json()
-      console.log('changed, category', res)
+      // console.log('changed, category', res)
       setQuestions(res)
     }
     const deckCall = async() => {
       try{
-        let req = await fetch('https://a890-71-190-177-64.ngrok.io/decks')
+        let req = await fetch('https://d5ed-71-190-177-64.ngrok.io/decks')
         let res = await req.json()
         setDeck(res)
-        console.log('deck info in try statement', deck)
+        // console.log('deck info in try statement', deck)
       }
       catch(error){
         console.log('this is the error',error)
@@ -37,7 +39,7 @@ export default function App() {
     deckCall()
     request()
   },[category])
-  console.log(category)
+  // console.log(category)
 
   return (
     <View style={styles.container}>      
@@ -48,7 +50,7 @@ export default function App() {
 
         <Routes>
           <Route exact path="/" element={<Decks deck={deck} setCategory={setCategory}/>} />
-          <Route exact path='/questions' element={<Questions questions={questions}/>}/>
+          <Route exact path='/questions' element={<Questions userOption={userOption} setUserOption={setUserOption} questions={questions}/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path ='/signup' element={<Signup/>}/>
           <Route exact path='/leaderboard' element={<Leaderboard/>}/>

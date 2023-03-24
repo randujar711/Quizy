@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-native';
 export default function Decks({ deck, setCategory}) {
     let navigate = useNavigate()
     chooseDeck = (e) =>{
-        console.log(e)
+        // console.log(e)
         setCategory(e.Category)
         navigate('/questions')
     }
@@ -20,7 +20,7 @@ export default function Decks({ deck, setCategory}) {
                 </Link>
                 {
                     deck.map((x)=> {
-                        console.log(x)
+                        {/* console.log(x) */}
                         return(
                             <TouchableOpacity key={x.id} style={styles.div} onPress={()=> {chooseDeck(x)}}>
                                 <Text>{x.Title}</Text>
