@@ -2,9 +2,10 @@ import { useState } from "react"
 
 export const useForm = (selections) => {
     const [selections, setSelections] = useState(selections)
-    const handleSelections = () => {
+    const handleSelections = useMemo (() => {
+        console.log('handle selections running')
         setSelections({...prevState, [option]: selections})
-    }
-    return ({ selections, handleSelections})
-}
+    }, [selections])
 
+    return ({ selections, handleSelections })
+}

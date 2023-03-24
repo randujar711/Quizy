@@ -6,7 +6,7 @@ import { useForm } from './hooks/useForm'
 
 export default function Questions({questions, userOption, setUserOption}) {
     const [score, setScore] = useState(0)
-    const { selections, handleSelections } = useForm({ email: '', password: '' });
+    const { selections, handleSelections } = useForm({ 1: '', 2: '', 3: '', 4: '', 5: ''});
 
     const handleSubmit = () => {
         console.log('this is values', values);
@@ -15,7 +15,6 @@ export default function Questions({questions, userOption, setUserOption}) {
     return(
         <View>
             <Text>questions component</Text>
-            {/* {console.log('this is questions on questions page',questions)} */}
             {
                 questions.map((x)=> {
                     let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
@@ -33,19 +32,12 @@ export default function Questions({questions, userOption, setUserOption}) {
                             <Text key={x.id}>
                                 {x.question}
                             </Text>
-                            <RadioButton AllChoices={AllChoices} userOption={userOption} setUserOption={setUserOption}/>
+                            <RadioButton AllChoices={AllChoices} selections={selections} handleSelections={handleSelections}/>
                         </View>
-                        
                     )
                 })
             }
-            <TouchableOpacity onPress={()=>{}}>
-                <Text>Submit</Text>
-            </TouchableOpacity>
-            <TextInput value={selections.email} onChangeText={value => handleSelections('email', value)} />
-            <TextInput value={selections.password} onChangeText={value => handleSelections('password', value)} />
-            <Button onPress={handleSubmit} title="Submit" />
-            
+            <Button onPress={handleSubmit} title='Submit' />
             <Link to={'/'}>
                 <Text>Press to go home</Text>
             </Link>
