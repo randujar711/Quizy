@@ -26,13 +26,13 @@ export default function App() {
     }
     const deckCall = async() => {
       try{
-        let req = await fetch('https://d5ed-71-190-177-64.ngrok.io/decks')
+        let req = await fetch('https://b518-2603-7000-3f40-95aa-894e-273a-e7ac-3f3e.ngrok.io/decks')
         let res = await req.json()
         setDeck(res)
         // console.log('deck info in try statement', deck)
       }
       catch(error){
-        console.log('this is the error',error)
+        console.log('this is the error', error)
       }
     }
     // console.log(deck)
