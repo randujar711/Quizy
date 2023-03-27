@@ -6,12 +6,30 @@ import { useForm } from './hooks/useForm'
 
 export default function Questions({questions, userOption, setUserOption}) {
     const [score, setScore] = useState(0)
-    // const { selections, handleSelections } = useForm({ 1: '', 2: '', 3: '', 4: '', 5: ''});
-
-    const handleSubmit = () => {
-        console.log('this is values', values);
-    };
-
+    const [submit, setSubmit] = useState(null)
+    const postScore = () => {
+        if(submit === null){
+            console.log('Quiz has yet to be completed')
+        }else if(submit === true){
+            console.log('submitted')
+        }else {
+            return
+        }
+    }
+    // postScore()
+    // const postScore = async() => {
+    //     if(submit === null){
+    //         console.log('Quiz has yet to be completed')
+    //     }else if(submit === true){
+    //         let req = await fetch ('')
+    //         let res = await req.json()
+    //         console.log(res)
+    //     }else {
+    //         return
+    //     }
+    // }
+    // postScore()
+    // dont forget to add use navigate
     return(
         <View>
             <Text>questions component</Text>
@@ -19,23 +37,31 @@ export default function Questions({questions, userOption, setUserOption}) {
                 questions.map((x)=> {
                     let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
                     AllChoices.sort(function () { return 0.5 - Math.random() })
-                    console.log('', userOption)
-                    const handleChange = (e) => {
-                        e.preventDefault()
-                        if (e.target.value === x.correctAnswer) setScore(score + 1)
+
+                    const righty = x.correctAnswer
+                    const wrongy = x.incorrectAnswers
+                    
+                    const selection = (x)=> {
+                        console.log('this is the correct answer', testy)
+                        if(x === righty){
+                            console.log('correct')
+                            setScore(score + 1)
+                            console.log(option)
+                        }else if(x === wrongy){
+                            (score + 0)
+                        }return 
                     }
-                    {/* console.log('after randmization', AllChoices) */}
                     return(
                         <View style={styles.question}>
                             <Text key={x.id}>
                                 {x.question}
                             </Text>
-                            <RadioButton AllChoices={AllChoices}/>
+                            <RadioButton keyss={x.id} selection={selection} AllChoices={AllChoices}/>
                         </View>
                     )
                 })
             }
-            <Button onPress={handleSubmit} title='Submit' />
+            <Button onPress={()=> setSubmit(true)} title='Submit' />
             <Link to={'/'}>
                 <Text>Press to go home</Text>
             </Link>
@@ -49,3 +75,25 @@ const styles = StyleSheet.create({
         marginBottom: 10
     }
 })
+
+
+// import { useMemo } from "react";
+
+// function MyComponent(props) {
+//   const { items } = props;
+
+//   const transformedItems = useMemo(() => {
+//     return items.map((item) => {
+//       // Some transformation logic here
+//       return transformedItem;
+//     });
+//   }, [items]);
+
+//   return (
+//     <div>
+//       {transformedItems.map((transformedItem) => {
+//         return <div key={transformedItem.id}>{transformedItem.name}</div>;
+//       })}
+//     </div>
+//   );
+// }
