@@ -6,6 +6,8 @@ import { useForm } from './hooks/useForm'
 
 export default function Questions({questions, userOption, setUserOption}) {
     const [score, setScore] = useState(0)
+    const [corr, setCorr] = useState(false)
+    const [wrong, setWrong] = useState(false)
     const [submit, setSubmit] = useState(null)
     const postScore = () => {
         if(submit === null){
@@ -42,15 +44,16 @@ export default function Questions({questions, userOption, setUserOption}) {
                     const wrongy = x.incorrectAnswers
                     
                     const selection = (x)=> {
-                        console.log('this is the correct answer', testy)
-                        if(x === righty){
-                            console.log('correct')
-                            setScore(score + 1)
-                            console.log(option)
-                        }else if(x === wrongy){
-                            (score + 0)
-                        }return 
-                    }
+                        if(x === righty && !corr){
+                            setScore(score + 1) 
+                            setCorr(true)
+                        }else if(x === wrongy[0] || wrongy[1] || wrongy[2] && !wrong){
+                            setWrong(true)
+                            setScore(score + 0)
+                            setCorr(false)
+                        }else{return} 
+                        
+                    }                    
                     return(
                         <View style={styles.question}>
                             <Text key={x.id}>
