@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Button } from 'react-native'
+import { useState, useMemo } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable } from 'react-native'
 import { Link } from "react-router-native"
 import RadioButton from './RadioButton'
 import { useForm } from './hooks/useForm'
@@ -10,14 +10,20 @@ export default function Questions({questions, userOption, setUserOption}) {
     const [wrong, setWrong] = useState(false)
     const [submit, setSubmit] = useState(null)
     const postScore = () => {
-        if(submit === null){
-            console.log('Quiz has yet to be completed')
-        }else if(submit === true){
-            console.log('submitted')
-        }else {
-            return
-        }
+        console.log('submitted')
     }
+    const AllChoices = useMemo(()=> {
+        return questions.map((x) => {
+            const questions = x.question
+            let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
+            AllChoices.sort(function () { return 0.5 - Math.random() })
+            const righty = x.correctAnswer
+            const wrongy = x.incorrectAnswers
+
+            return {AllChoices, righty, wrongy, questions}
+        })
+    }, [])
+    // console.log(AllChoices)
     // postScore()
     // const postScore = async() => {
     //     if(submit === null){
@@ -35,36 +41,33 @@ export default function Questions({questions, userOption, setUserOption}) {
     return(
         <View>
             <Text>questions component</Text>
-            {
-                questions.map((x)=> {
-                    let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
-                    AllChoices.sort(function () { return 0.5 - Math.random() })
+            {AllChoices.map((option)=> {
+                const selection = (x)=> {
+                    if(x === option.righty && !corr){
+                        console.log('you chose the right selection', x)
+                        setScore(score + 1) 
+                        setCorr(true)
+                    }else if(x === option.wrongy[0] || option.wrongy[1] || option.wrongy[2] && !wrong){
+                        setWrong(true)
+                        setScore(score + 0)
+                        setCorr(false)
+                        console.log('you chose the WRONG selection:', x, 'choose:', option.righty)
 
-                    const righty = x.correctAnswer
-                    const wrongy = x.incorrectAnswers
-                    
-                    const selection = (x)=> {
-                        if(x === righty && !corr){
-                            setScore(score + 1) 
-                            setCorr(true)
-                        }else if(x === wrongy[0] || wrongy[1] || wrongy[2] && !wrong){
-                            setWrong(true)
-                            setScore(score + 0)
-                            setCorr(false)
-                        }else{return} 
-                        
-                    }                    
-                    return(
-                        <View style={styles.question}>
-                            <Text key={x.id}>
-                                {x.question}
-                            </Text>
-                            <RadioButton keyss={x.id} selection={selection} AllChoices={AllChoices}/>
-                        </View>
-                    )
-                })
-            }
-            <Button onPress={()=> setSubmit(true)} title='Submit' />
+                    }else{return}
+                }        
+                return(
+                    <View style={styles.question}>
+                    {console.log(score)}
+                        <Text>{option.questions}</Text>
+                        <RadioButton selection={selection} option={option}/>
+                    </View>
+                )
+            })}
+            <Pressable 
+                onPress={postScore}
+            >
+                <Text>Submit</Text>
+            </Pressable>
             <Link to={'/'}>
                 <Text>Press to go home</Text>
             </Link>

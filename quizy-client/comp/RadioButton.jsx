@@ -2,11 +2,10 @@ import React from "react";
 import { Text, View, StyleSheet, Pressable } from  'react-native'
 // import { blue100 } from "react-native-paper/lib/typescript/src/styles/themes/v2/colors";
 
-export default function RadioButton({AllChoices, selection, keyss}){
-    console.log('keys',keyss)
+export default function RadioButton({option, selection }){    
     return(
         <View>
-            {AllChoices?.map((x)=> {
+            {option.AllChoices?.map((x)=> {
                 return(
                     <Pressable 
                         onPress={()=>{selection(x)}}>
