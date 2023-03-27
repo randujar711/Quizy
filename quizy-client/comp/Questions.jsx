@@ -6,7 +6,7 @@ import { useForm } from './hooks/useForm'
 
 export default function Questions({questions, userOption, setUserOption}) {
     const [score, setScore] = useState(0)
-    const { selections, handleSelections } = useForm({ 1: '', 2: '', 3: '', 4: '', 5: ''});
+    // const { selections, handleSelections } = useForm({ 1: '', 2: '', 3: '', 4: '', 5: ''});
 
     const handleSubmit = () => {
         console.log('this is values', values);
@@ -19,8 +19,6 @@ export default function Questions({questions, userOption, setUserOption}) {
                 questions.map((x)=> {
                     let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
                     AllChoices.sort(function () { return 0.5 - Math.random() })
-                    {/* let RetChoices = {key: AllChoices} */}
-                    {/* console.log(RetChoices) */}
                     console.log('', userOption)
                     const handleChange = (e) => {
                         e.preventDefault()
@@ -32,7 +30,7 @@ export default function Questions({questions, userOption, setUserOption}) {
                             <Text key={x.id}>
                                 {x.question}
                             </Text>
-                            <RadioButton AllChoices={AllChoices} selections={selections} handleSelections={handleSelections}/>
+                            <RadioButton AllChoices={AllChoices}/>
                         </View>
                     )
                 })
