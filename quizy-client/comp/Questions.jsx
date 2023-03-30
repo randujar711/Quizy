@@ -15,22 +15,22 @@ export default function Questions({questions, userOption, setUserOption}) {
         // Alert('Submitted')
         nav('/')
     }
-    console.log('in questions page', questions)
-    const AllChoices = useMemo(()=> {
-        return questions?.map((x) => {
-            console.log('inside usememo', x)
-            const questions = x.question
-            let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
-            AllChoices.sort(function () { return 0.5 - Math.random() })
-            const righty = x.correctAnswer
-            const wrongy = x.incorrectAnswers
-            return {AllChoices, righty, wrongy, questions}
-        })
-    }, []) 
+    // console.log('in questions page', questions)
+    // const AllChoices = useMemo(()=> {
+    //     return questions?.map((x) => {
+    //         console.log('inside usememo', x)
+    //         const questions = x.question
+    //         let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
+    //         AllChoices.sort(function () { return 0.5 - Math.random() })
+    //         const righty = x.correctAnswer
+    //         const wrongy = x.incorrectAnswers
+    //         return {AllChoices, righty, wrongy, questions}
+    //     })
+    // }, []) 
     return(
         <ScrollView style={{marginTop: 50}}>
             <Text>questions component</Text>
-            {AllChoices.map((option)=> {
+            {/* {AllChoices.map((option)=> {
                 const selection = (x)=> {
                     if(x === option.righty && !corr){
                         console.log('you chose the right selection', x)
@@ -51,7 +51,7 @@ export default function Questions({questions, userOption, setUserOption}) {
                         <RadioButton selection={selection} option={option}/>
                     </View>
                 )
-            })}
+            })} */}
             <Pressable 
                 onPress={postScore}
             >

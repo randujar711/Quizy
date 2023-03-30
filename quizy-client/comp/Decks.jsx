@@ -3,13 +3,18 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, Button, Alert, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { Link, useNavigate } from 'react-router-native';
 
-export default function Decks({ deck, setCategory}) {
+export default function Decks({  callCount, deck, setCategory}) {
     let navigate = useNavigate()
+
+    console.log('callCount in deck comp',callCount)
+
     chooseDeck = (e) =>{
         console.log(e.Category)
+        console.log('in choosedeck', callCount)
+        // setCallCount(callCount + 1)
+
         setCategory(e.Category)
         navigate('/questions')
-        
     }
     return(
         <ScrollView>
@@ -21,7 +26,6 @@ export default function Decks({ deck, setCategory}) {
                 </Link>
                 {
                     deck.map((x)=> {
-                        {/* console.log(x) */}
                         return(
                             <TouchableOpacity key={x.id} style={styles.div} onPress={()=> {chooseDeck(x)}}>
                                 <Text>{x.Title}</Text>
