@@ -6,9 +6,10 @@ import { Link, useNavigate } from 'react-router-native';
 export default function Decks({ deck, setCategory}) {
     let navigate = useNavigate()
     chooseDeck = (e) =>{
-        // console.log(e)
+        console.log(e.Category)
         setCategory(e.Category)
         navigate('/questions')
+        
     }
     return(
         <ScrollView>
@@ -32,11 +33,6 @@ export default function Decks({ deck, setCategory}) {
                 <Link to={'/login'}>
                     <Text>login page</Text>
                 </Link>
-                    <Button
-                        title="Sports Question" 
-                        onPress={()=>{setCategory("Society & Culture")}}
-                    />
-                    
             </View>
         </ScrollView>
     )

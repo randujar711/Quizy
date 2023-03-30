@@ -1,6 +1,5 @@
 import React from "react";
 import { Text, View, StyleSheet, Pressable } from  'react-native'
-// import { blue100 } from "react-native-paper/lib/typescript/src/styles/themes/v2/colors";
 
 export default function RadioButton({option, selection }){    
     return(
@@ -8,7 +7,9 @@ export default function RadioButton({option, selection }){
             {option.AllChoices?.map((x)=> {
                 return(
                     <Pressable 
-                        onPress={()=>{selection(x)}}>
+                        style={styles.question}
+                        onPress={()=>{selection(x)}}
+                    >
                         <Text>{x}</Text>
                     </Pressable>
                 )
@@ -16,3 +17,13 @@ export default function RadioButton({option, selection }){
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    question:{
+        borderBottomWidth: '2', 
+        borderTopWidth: '2',
+        margin: '2% 5% 2% 5%',
+        // marginBottom: 8,
+        backgroundColor: 'orange'
+    }
+})

@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { NativeRouter, Route, Routes, Link } from 'react-router-native';
 import Decks from './comp/Decks.jsx';
 import Login from './comp/Login.jsx';
@@ -13,32 +13,31 @@ import Header from './comp/Header.jsx';
 
 export default function App() {
   const[questions, setQuestions] = useState([])
-  const [category, setCategory] = useState('history')
+  const [category, setCategory] = useState([])
   const [deck, setDeck] = useState([])
   const [userOption, setUserOption] = useState(null)
-
   useEffect(()=> {
-    const request = async() => {
-      let req = await fetch(`https://the-trivia-api.com/api/questions?categories=${category}&limit=5`)
-      let res = await req.json()
-      // console.log('changed, category', res)
-      setQuestions(res)
-    }
+    deckCall()
+  },[])
+
     const deckCall = async() => {
       try{
-        let req = await fetch('https://2e61-71-190-177-64.ngrok.io/decks')
+        let req = await fetch('https://1de2-71-190-177-64.ngrok.io/decks')
         let res = await req.json()
         setDeck(res)
         // console.log('deck info in try statement', deck)
+        request(res)
       }
       catch(error){
         console.log('this is the error', error)
       }
     }
-    // console.log(deck)
-    deckCall()
-    request()
-  },[category])
+    const request = useCallback(async() => {
+      let req = await fetch(`https://the-trivia-api.com/api/questions?categories=${category}&limit=5`)
+      let res = await req.json()
+      console.log('changed, category', res)
+      setQuestions(res)
+    }, [deck])
   // console.log(category)
 
   return (

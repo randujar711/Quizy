@@ -29,41 +29,55 @@ def home():
 def decks():
     decks = Deck.query.all()
     deck_list = [deck.to_dict() for deck in decks]
-    # emit('decks', deck_list)
     return jsonify(deck_list), 201
 
+@app.post('/users')
+def signup():
+    data = request.form
+    user = User.query.filter_by(email=data['email']).first()
+    if user: 
+        return jsonify({'error': 'account already exists'}), 400
+
+    user_new = User(data['username'], data['email'], data['password'])
+    db.session.add(user_new)
+    db.session.commit()
+
+    return jsonify({'message':'user created'}), 201
 
 
-# @app.get('/info')
-# def info():
-#     print(dir(platform))
-#     return {'machine': platform.node()}
+@app.post('/login')
+# @cross_origin(origin='http://localhost:5173')
+def login():
+    data = request.form
+    print(data)
+    user = User.query.filter_by(email=data['email']).first()
+    print('hello', user)
+    if not user:
+        return jsonify({'error': 'No account` found'}), 404
+    given_password = data['password']
+    if user.password == given_password:
+        # authenticate user
+        token = create_access_token(identity=user.id)
+        return jsonify({'user': user.to_dict(), 'token': token})
+    else:
+        return jsonify({'error': 'invalid password'}), 422
 
 
-# @app.post('/users')
-# def users():
-#     data = request.form
-#     user = User(data['username'], data['email'], data['password'])
-#     print(data)
-#     db.session.add(user)
-#     db.session.commit()
-#     return jsonify(user.to_dict()), 201
+@app.get("/me")
+@jwt_required()
+def protected():
+    current_user = get_jwt_identity()
+    print('this is current user', current_user)
+    user = User.query.get(current_user)
+    print('this is user', user)
 
+    # We can now access our sqlalchemy User object via `current_user`.
+    if user:
+        print('here is your user', user)
+        return jsonify(user.to_dict())
+    else:
+        return {}, 404
 
-# @app.post('/login')
-# def login():
-#     data = request.form
-#     user = User.query.filter_by(email=data['email']).first()
-#     if not user:
-#         return jsonify({'error': 'No user found'}), 404
-#     given_password = data['password']
-#     if user.password == given_password:
-#         # encode JWT as the token variable, signing it with our application's secret key
-#         # we store only what the token will need while identifying the users on any given request
-#         token = create_access_token(identity=user.id)
-#         return jsonify({'user': user.to_dict(), 'token': token})
-#     else:
-#         return jsonify({'error': 'Invalid email or password'}), 422
 
 
 # @app.get('/users/<int:id>')
