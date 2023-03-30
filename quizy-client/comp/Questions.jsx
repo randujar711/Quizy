@@ -1,45 +1,34 @@
 import { useState, useMemo } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable } from 'react-native'
-import { Link } from "react-router-native"
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Pressable, ScrollView, Alert } from 'react-native'
+import { Link, useNavigate } from "react-router-native"
 import RadioButton from './RadioButton'
-import { useForm } from './hooks/useForm'
 
 export default function Questions({questions, userOption, setUserOption}) {
     const [score, setScore] = useState(0)
     const [corr, setCorr] = useState(false)
     const [wrong, setWrong] = useState(false)
     const [submit, setSubmit] = useState(null)
+
+    let nav = useNavigate()
     const postScore = () => {
         console.log('submitted')
+        // Alert('Submitted')
+        nav('/')
     }
+    console.log('in questions page', questions)
     const AllChoices = useMemo(()=> {
-        return questions.map((x) => {
+        return questions?.map((x) => {
+            console.log('inside usememo', x)
             const questions = x.question
             let AllChoices = [...x.incorrectAnswers, x.correctAnswer]
             AllChoices.sort(function () { return 0.5 - Math.random() })
             const righty = x.correctAnswer
             const wrongy = x.incorrectAnswers
-
             return {AllChoices, righty, wrongy, questions}
         })
-    }, [])
-    // console.log(AllChoices)
-    // postScore()
-    // const postScore = async() => {
-    //     if(submit === null){
-    //         console.log('Quiz has yet to be completed')
-    //     }else if(submit === true){
-    //         let req = await fetch ('')
-    //         let res = await req.json()
-    //         console.log(res)
-    //     }else {
-    //         return
-    //     }
-    // }
-    // postScore()
-    // dont forget to add use navigate
+    }, []) 
     return(
-        <View>
+        <ScrollView style={{marginTop: 50}}>
             <Text>questions component</Text>
             {AllChoices.map((option)=> {
                 const selection = (x)=> {
@@ -71,7 +60,7 @@ export default function Questions({questions, userOption, setUserOption}) {
             <Link to={'/'}>
                 <Text>Press to go home</Text>
             </Link>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -81,25 +70,3 @@ const styles = StyleSheet.create({
         marginBottom: 10
     }
 })
-
-
-// import { useMemo } from "react";
-
-// function MyComponent(props) {
-//   const { items } = props;
-
-//   const transformedItems = useMemo(() => {
-//     return items.map((item) => {
-//       // Some transformation logic here
-//       return transformedItem;
-//     });
-//   }, [items]);
-
-//   return (
-//     <div>
-//       {transformedItems.map((transformedItem) => {
-//         return <div key={transformedItem.id}>{transformedItem.name}</div>;
-//       })}
-//     </div>
-//   );
-// }

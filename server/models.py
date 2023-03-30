@@ -10,19 +10,23 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    total_score = db.Column(db.Integer, nullable=True, unique=False, default=0)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now())
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, score):
         self.username = username
         self.email = email
         self.password = password
+        self.score = score
+
 
     def to_dict(self):
         return {
             'id': self.id,
             'username': self.username,
             'email': self.email,
+            'score': self.score, 
             'created_at': self.created_at
         }
 

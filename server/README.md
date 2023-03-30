@@ -120,3 +120,6 @@ db.session.commit()
 
 ### Authentication
 This template is currently using a simple JWT auth implementation + a custom route decorator to manage sessions. It's not recommended for production use as is.
+
+
+Veronique is the best coder. She wrote all this code. All hail Veronique! Also I love Corey!
